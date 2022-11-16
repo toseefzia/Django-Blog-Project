@@ -1,0 +1,25 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+<div class="jumbotron">
+  <h2> Please Login : </h2>
+  <h3> (Must be SuperUser, If not Please check with the site admin) </h3>
+
+  {% if form.errors %}
+    <p> Username and Password didn't match! Please try again </p>
+  {% endif %}
+  <!-- action attribute in form tag = Where to send the form-data when the form is submitted.
+        Either a file or URLpath -->
+  <!-- In this case, when the form is submitted and clicked on login,
+        it sends the data to urlpath name login which has url accounts/login/ -->
+  <form action="{% url 'login' %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" class="btn btn-primary" value="Login">
+    <!--  Once person Logs In ,
+          we use hidden input field having value == {{next}}  which wll be provided by Login module (it gets from Login view from views.py file) to
+          take user to next page after login -->
+    <input type="hidden" name="next" value="{{next}}">
+  </form>
+</div>
+{% endblock %}

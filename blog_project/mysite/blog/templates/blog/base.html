@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title> Blog </title>
+
+    <!--  Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+    <!--  Medium Style Editor -->
+    <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+    <!--  Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <!--  Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Russo+One" rel="stylesheet">
+  </head>
+  <body>
+    <!--  Navbar -->
+    <nav class="navbar navbar-default techfont custom-navbar"> <!--  custom navbar class will be used if we want to amke changes to the navbar about how it looks -->
+      <div class="container">
+        <ul class="nav navbar-nav">
+        <li><a class='navbar-brand bigbrand' href="{% url 'post_list' %}"> BlogSite </a></li>
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="https://www.github.com">Github</a></li>
+        <li><a href="https://www.linkedin.com">LinkedIn</a></li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+        <li>
+          <a href="{% url 'post_new' %}" >New Post</a>
+        </li>
+
+        <li>
+          <a href="{% url 'post_draft_list' %}">Drafts</a>
+        </li>
+        <li>
+          <a href="{% url 'logout' %}" >Log out</a>
+        </li>
+
+        <li>
+          <a >Welcome: {{ user.username }}</a>
+        </li>
+          {% else %}
+        <!--  <span class="glyphicon glyphicon-user"></span> -->
+          <!--  inside span tag, use class glyphicon touse profile icon for login which is built in bootstrap  -->
+          <li><a class='nav navbar-right' href="{% url 'login' %}" ><span class="glyphicon glyphicon-user"></span></a></li>
+        {% endif %}
+
+      </ul>
+      </div>
+    </nav>
+    <!--  Content BLock -->
+
+            <div class="content container">
+                <div class="row">
+                    <div class="col-md-8">
+                      <div class="blog_posts">
+                        {% block content %}
+                        {% endblock %}
+
+                      </div>
+
+                    </div>
+                </div>
+            </div>
+
+  </body>
+</html>

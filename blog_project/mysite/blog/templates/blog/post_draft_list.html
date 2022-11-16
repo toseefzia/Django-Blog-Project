@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <!-- for loop to get all posts  -->
+    {% for post in post_draft_list %}
+        <div class="post">
+          <!-- get post created date and format it using string function |date:'d-m-Y'  -->
+            <p class="date">created: {{ post.created_date|date:'d-m-Y' }}</p>
+            <!--  if user click on post title take him/her to post detail page using provided primary key -->
+            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+            <!--  show text of post till 200 characters (again using string function) -->
+            <p>{{ post.text|truncatechars:200 }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}

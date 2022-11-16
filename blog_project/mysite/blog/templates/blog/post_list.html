@@ -1,0 +1,20 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="centerstage">
+
+
+    {% for post in post_list %}
+        <div class="post">
+<!-- When user click on post title, it takes him/her to post detail page based on current clicked post primary key -->
+            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+            <div class="date">
+                <!--  formating date using string function |date:"D M Y"  -->
+                <p>Published on: {{ post.published_date|date:"D M Y"}}</p>
+            </div>
+            <!-- When user click on comments, it takes him/her to post detail page where all comments list is under that post -->
+            <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.approved_comments.count }}</a>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
